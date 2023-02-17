@@ -54,3 +54,9 @@ AS
 	DELETE FROM AddressBookDetails 
 	Where FirstName = @name
 RETURN 0
+ --UC_05-Retrieve contact using city
+CREATE PROCEDURE [dbo].[SpRetrieveContact]
+@City varchar(255)
+AS
+	SELECT FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, Book_Name, Contact_Type FROM ContactBook WHERE City = @City;
+RETURN 0

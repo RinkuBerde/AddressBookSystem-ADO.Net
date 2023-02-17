@@ -41,4 +41,21 @@ namespace AdressBookADOTestProject1
         bool result = AddressBookRespitory.EditContact( ContactDataManager contact);
         Assert.IsTrue(result);
     }
+    //UseCase 4: Delete person based on Name
+    [TestMethod]
+    public void DeletePersonBasedonName()
+    {
+        int expected = 1;
+        int actual = addressBookRepository.DeletePersonBasedonName();
+        Assert.AreEqual(expected, actual);
+    }
+    //UseCase 5: Ability to Retrieve Person belonging to a City or State from the Address Book
+    [TestMethod]
+    public void GivenRetrieveQuery_ReturnString()
+    {
+        string expected = "Harsha Pramela meena ";
+        string actual = addressBookRepository.PrintDataBasedOnCity("Bangalore", "Karnataka");
+        Assert.AreEqual(expected, actual);
+    }
+
 }

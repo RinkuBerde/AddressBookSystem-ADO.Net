@@ -177,6 +177,25 @@ namespace AddressBookSystem_ADO.Net
         }
         return false;
     }
+    //UseCase 5: Ability to Retrieve Person belonging to a City or State from the Address Book
+    public string PrintDataBasedOnCity(string city, string State)
+    {
+        string nameList = "";
+        //query to be executed
+        string query = @"select * from AddressBookDetails where City =" + "'" + city + "' or State=" + "'" + State + "'";
+        SqlCommand sqlCommand = new SqlCommand(query, this.sqlConnection);
+        sqlConnection.Open();
+        SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+        if (sqlDataReader.HasRows)
+        {
+            while (sqlDataReader.Read())
+            {
+                DisplayEmployeeDetails(sqlDataReader);
+                nameList += sqlDataReader["FirstName"].ToString() + " ";
+            }
+        }
+        return nameList;
+    }
 }
 
 
