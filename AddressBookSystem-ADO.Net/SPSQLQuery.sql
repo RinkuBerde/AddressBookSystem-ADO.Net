@@ -58,11 +58,17 @@ RETURN 0
 CREATE PROCEDURE [dbo].[SpRetrieveContact]
 @City varchar(255)
 AS
-	SELECT FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, Book_Name, Contact_Type FROM ContactBook WHERE City = @City;
+	SELECT FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, Book_Name, Contact_Type FROM AddressBookDetails WHERE City = @City;
 RETURN 0
 
 --UC-08-ability to get size of contact using city
 CREATE PROCEDURE [dbo].[SpGetSize]
 AS
 	SELECT Count(City), Count(State) FROM AddressBookDetails ;
+RETURN 0
+
+CREATE PROCEDURE [dbo].[SpSortTable]
+@City varchar(255)
+AS
+	SELECT FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, Book_Name, Contact_Type FROM AddressBookDetails WHERE City = @City ORDER BY FirstName ASC;
 RETURN 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection.Emit;
@@ -227,7 +228,54 @@ namespace AddressBookSystem_ADO.Net
         }
         return false;
     }
+
+   // UC-09-sorted alphabetically by Person’s name for a given city
+    public bool SortTable(string city)
+    {
+        SqlConnection connection = new SqlConnection(sqlConnection);
+        try
+        {
+            int flag = 0;
+            using (sqlConnection)
+            {
+                string spName = "dbo.SpSortTable";
+                SqlCommand command = new SqlCommand(spName, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                command.Parameters.AddWithValue("@City", city);
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    flag++;
+                    FirstName = dr.GetString(0);
+                    LastName = dr.GetString(1);
+                    Address = dr.GetString(2);
+                    City = dr.GetString(3);
+                    State = dr.GetString(4);
+                    zip = dr.GetInt32(5);
+                    PhoneNumber = dr.GetInt64(6);
+                    Email = dr.GetString(7);
+                    Book_Name = dr.GetString(2);
+                    Contact_Type = dr.GetString(2);
+                    Console.WriteLine($"{FirstName} {LastName} {Address} {City} {State} {zip} {PhoneNumber} {Email} {Book_Name} {Contact_Type}" );
+                }
+                outputMessage = flag >= 1 ? $"{flag} Contact(s) found" : "Contact not found";
+                Console.WriteLine(outputMessage);
+                return flag >= 1;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return false;
+    }
 }
+
 
 
 
