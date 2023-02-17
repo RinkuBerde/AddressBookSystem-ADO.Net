@@ -60,3 +60,9 @@ CREATE PROCEDURE [dbo].[SpRetrieveContact]
 AS
 	SELECT FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, Book_Name, Contact_Type FROM ContactBook WHERE City = @City;
 RETURN 0
+
+--UC-08-ability to get size of contact using city
+CREATE PROCEDURE [dbo].[SpGetSize]
+AS
+	SELECT Count(City), Count(State) FROM AddressBookDetails ;
+RETURN 0

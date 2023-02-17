@@ -196,6 +196,37 @@ namespace AddressBookSystem_ADO.Net
         }
         return nameList;
     }
+
+    //  UC-08-ability to get size of contact using city
+    public bool GetSize()
+    {
+        SqlConnection connection = new SqlConnection(sqlConnection);
+        try
+        {
+            using (sqlConnection)
+            {
+                string spName = "dbo.SpGetSize";
+                SqlCommand command = new SqlCommand(spName, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Console.WriteLine($"Number of cities: {dr.GetInt32(0)} \n Number of states: {dr.GetInt32(1)}");
+                }
+                return dr != null ? true : false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            connection.Close();
+        }
+        return false;
+    }
 }
 
 
