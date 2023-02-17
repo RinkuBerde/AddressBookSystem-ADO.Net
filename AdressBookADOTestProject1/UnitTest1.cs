@@ -75,6 +75,15 @@ namespace AdressBookADOTestProject1
         string actual = addressBookRepository.PrintSortDataBasedOnCity("America");
         Assert.AreEqual(expected, actual);
     }
-}
 
+    //UC 10: Ability to get number of contact persons by Type
+    [TestMethod]
+    public void GivenCountTypeQuery_ReturnString()
+    {
+        string expected = "1 3 1 ";
+        string actual = addressBookRepository.ContactDataBasedOnType();
+        Assert.AreEqual(expected, actual);
+    }
+}
+    
 
