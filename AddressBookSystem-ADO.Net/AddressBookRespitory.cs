@@ -177,7 +177,7 @@ namespace AddressBookSystem_ADO.Net
         }
         return false;
     }
-    //UseCase 5: Ability to Retrieve Person belonging to a City or State from the Address Book
+    //UseCase 5:ability to Retrieve Person belonging to a City or State from the Address Book
     public string PrintDataBasedOnCity(string city, string State)
     {
         string nameList = "";
