@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AddressBookSystem_ADO.Net
 {
-   public class AddressBookRespitory
+    public class AddressBookRespitory
     {
         //Give path for Database Connection
         public static string connection = @"Server=(localdb)\MSSQLLocalDB;Database=Address_Book;Trusted_Connection=True;";
@@ -75,7 +75,7 @@ namespace AddressBookSystem_ADO.Net
                     if (dr.HasRows)
                     {
                         while (dr.Read())
-                        { 
+                        {
                             addressBook.FirstName = Convert.ToString(dr["FirstName"]);
                             addressBook.FirstName = Convert.ToString(dr["FirstName"]);
                             addressBook.Address = Convert.ToString(dr["Address"] + " " + dr["City"] + " " + dr["State"] + " " + dr["zip"]);
@@ -139,6 +139,47 @@ namespace AddressBookSystem_ADO.Net
             return false;
         }
     }
+    // //UseCase 4-Delete Contact using their name
+    public int DeletePersonBasedonName()
+    {
+        SqlConnection sqlConnection = new SqlConnection(connection);
+        try
+        {
+            using (this.sqlConnection)
+            {
+               
+                
+                string query = "delete from AddressBookDetails where FirstName = 'Rinku' and LastName = 'Berde'";
+                //Pass query to TSql
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                string spName = "dbo.SpDeleteContact";
+                SqlCommand command = new SqlCommand(spName, sqlConnection);
+                int result = sqlCommand.ExecuteNonQuery();
+                if (result != 0)
+                {
+                    Console.WriteLine("Updated!");
+                }
+                else
+                {
+                    Console.WriteLine("Not Updated!");
+                }
+                return result;
+            }        
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            sqlConnection.Close();
+        }
+        return false;
+    }
 }
+
+
+
 
 
