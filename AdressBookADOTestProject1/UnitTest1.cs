@@ -66,6 +66,15 @@ namespace AdressBookADOTestProject1
         string actual = addressBookRepository.PrintCountDataBasedOnCity();
         Assert.AreEqual(expected, actual);
     }
+
+    //UC 7: Ability to retrieve entries sorted alphabetically
+    [TestMethod]
+    public void GivenSortQuery_ReturnString()
+    {
+        string expected = "Rinku";
+        string actual = addressBookRepository.PrintSortDataBasedOnCity("America");
+        Assert.AreEqual(expected, actual);
+    }
 }
 
 
